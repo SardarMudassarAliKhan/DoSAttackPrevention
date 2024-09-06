@@ -1,12 +1,8 @@
-﻿@using reCAPTCHA.AspNetCore
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewData["Title"] = "Login";
 }
-@inject IRecaptchaService _recaptcha
-@{
-    var request = ViewBag.Request as HttpRequest;
-    var recaptchaResult = await _recaptcha.Validate(request);
-}
+
+<h2>Login</h2>
 
 <form asp-controller="Home" asp-action="Login" method="post">
     <div class="form-group">

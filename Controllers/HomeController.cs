@@ -5,34 +5,43 @@ namespace DoSAttackPrevention.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRecaptchaService _recaptcha;
 
-        public HomeController(IRecaptchaService recaptcha)
-        {
-            _recaptcha = recaptcha;
-        }
+            private readonly IRecaptchaService _recaptcha;
 
-        public IActionResult Login()
-        {
-            ViewBag.Request = Request;
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(string username, string password)
-        {
-            var recaptchaResult = await _recaptcha.Validate(Request);
-            if (!recaptchaResult.success)
+            public HomeController(IRecaptchaService recaptcha)
             {
-                ModelState.AddModelError(string.Empty, "CAPTCHA validation failed.");
+                _recaptcha = recaptcha;
+            }
+
+            [HttpGet]
+            public IActionResult Login()
+            {
                 return View();
             }
-            return RedirectToAction("Index");
-        }
 
-        public IActionResult Index()
-        {
-            return View();
+            [HttpPost]
+            public async Task<IActionResult> Login(string username, string password)
+            {
+                var recaptchaResult = await _recaptcha.Validate(Request);
+                if (!recaptchaResult.success)
+                {
+                    ModelState.AddModelError(string.Empty, "CAPTCHA validation failed.");
+                    return View();
+                }
+
+                if (username == "admin" && password == "password") 
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View();
+            }
+
+            public IActionResult Index()
+            {
+                return View();
+            }
         }
-    }
-}
+  }
+
