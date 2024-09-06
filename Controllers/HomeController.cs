@@ -27,9 +27,6 @@ namespace DoSAttackPrevention.Controllers
                 ModelState.AddModelError(string.Empty, "CAPTCHA validation failed.");
                 return View();
             }
-
-            // Perform login logic here (e.g., validate username/password)
-
             return RedirectToAction("Index");
         }
 

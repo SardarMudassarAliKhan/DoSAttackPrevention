@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DoSAttackPrevention.Pages
+namespace DoSAttackPrevention.Views
 {
     public class PrivacyModel : PageModel
     {
